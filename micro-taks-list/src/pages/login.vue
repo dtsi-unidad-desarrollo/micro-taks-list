@@ -1,9 +1,31 @@
 <template>
- <div>
+    <div class="row">
+        <div class="cod-md-6 offset-md-3">
     <div>
-        <h1>pagina de login</h1>
+        <div>
+            <h3>login</h3>
+            <hr />
+        </div>
+        <form>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="from-control"/>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="Password" class="from-control"/>
+            </div>
+                
+                <div class="my-3">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            
+               </form>
+            </div>
+        </div>
     </div>
- </div>
+ 
 </template>
 
 <script>
