@@ -1,4 +1,5 @@
 <template>
+  <Navigation/>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -12,9 +13,12 @@
   </template>
 
 <script>
+import Navigation from './components/Navigation.vue';
 export default {
   name: 'App',
-  components : {},
+  components : {
+    Navigation
+  },
 
 };
 </script>
