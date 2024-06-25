@@ -1,9 +1,9 @@
 <template>
-<div>
+ <div>
     <div>
-        pagina de login
+        <h1>pagina de login</h1>
     </div>
-</div>
+ </div>
 </template>
 
 <script>

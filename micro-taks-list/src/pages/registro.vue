@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            pagina de registro
+            <h1>pagina de registro</h1>
         </div>
     </div>
 </template>
