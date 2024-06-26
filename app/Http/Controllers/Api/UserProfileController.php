@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,7 +38,7 @@ class UserProfileController extends Controller
         }
         $user->save();
 
-        return response()->json(['message' => 'Profile updated successfully'], 200);
+        return response()->json(['message' => '[Perfil actualizado correctamente]'], 200);
     }
 }
 

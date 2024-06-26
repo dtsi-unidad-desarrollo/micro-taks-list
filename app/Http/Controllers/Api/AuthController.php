@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return response()->json(['message' => 'User registered successfully'], 201);
+        return response()->json(['message' => 'Usuario registrado satisfactoriamente'], 201);
     }
 
     public function login(Request $request)
@@ -37,12 +38,43 @@ class AuthController extends Controller
 
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Invalid credentials'], 401);
+                return response()->json(['error' => 'Credencialesno validas'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not create token'], 500);
+            return response()->json(['error' => 'No se pudo crear el token'], 500);
         }
 
         return response()->json(['token' => $token], 200);
     }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->stateless()->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->stateless()->user();
+            $existingUser = User::where('email', $user->email)->first();
+
+            if ($existingUser) {
+                $token = JWTAuth::fromUser($existingUser);
+                return response()->json(['token' => $token]);
+            } else {
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id' => $user->id,
+                    'password' => bcrypt('password')
+                ]);
+
+                $token = JWTAuth::fromUser($newUser);
+                return response()->json(['token' => $token]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    }
 }
+
