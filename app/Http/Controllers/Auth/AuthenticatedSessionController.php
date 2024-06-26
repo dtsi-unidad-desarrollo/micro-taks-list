@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
+    /**Este controlador maneja las solicitudes de inicio de sesión autenticadas y cierre de sesión. 
+     
      */
     public function store(LoginRequest $request): Response
     {

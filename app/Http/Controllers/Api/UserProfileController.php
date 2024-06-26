@@ -11,6 +11,7 @@ class UserProfileController extends Controller
 {
     public function updateProfile(Request $request)
     {
+        // Validación de datos
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|string|max:255',
             'phone' => 'sometimes|string|max:20',
@@ -22,6 +23,7 @@ class UserProfileController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        // Actualización del perfil
         $user = Auth::user();
         if ($request->has('name')) {
             $user->name = $request->name;
@@ -38,7 +40,6 @@ class UserProfileController extends Controller
         }
         $user->save();
 
-        return response()->json(['message' => '[Perfil actualizado correctamente]'], 200);
+        return response()->json(['message' => 'Perfil actualizado correctamente'], 200);
     }
 }
-

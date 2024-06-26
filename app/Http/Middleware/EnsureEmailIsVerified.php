@@ -10,9 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 class EnsureEmailIsVerified
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * Middleware que asegura que el usuario autenticado haya verificado su dirección de correo electrónico antes de permitir 
+     * el acceso a las rutas protegidas por este requisito
      */
     public function handle(Request $request, Closure $next): Response
     {

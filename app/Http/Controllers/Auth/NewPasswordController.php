@@ -14,10 +14,8 @@ use Illuminate\Validation\ValidationException;
 
 class NewPasswordController extends Controller
 {
-    /**
-     * Handle an incoming new password request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+    /**Controlador para manejar las solicitudes de restablecimiento de contraseña y generar una nueva contraseña.
+
      */
     public function store(Request $request): JsonResponse
     {

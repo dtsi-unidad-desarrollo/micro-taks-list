@@ -11,10 +11,13 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+    /*
+    getJWTIdentifier(): Implementa el método de la interfaz JWTSubject para obtener el identificador que será almacenado en el claim sub del JWT.
+    En este caso, retorna la clave primaria del usuario.
+    getJWTCustomClaims(): Implementa el método de la interfaz JWTSubject para añadir claims personalizados al JWT. Aquí se retorna un array vacío, pero podrías añadir claims adicionales según tus necesidades.
+    isAdmin(): Método personalizado que verifica si el usuario tiene el rol de administrador (role === 'admin'). Este método es utilizado por el middleware 
+    AdminMiddleware para autorizar a usuarios con privilegios de administrador en ciertas rutas.    
+
      */
     protected $fillable = [
         'name', 'email', 'password', 'google_id', 'role'
@@ -59,7 +62,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Check if the user has an admin role.
+     * Verificar si el usuario esadmin
      *
      * @return bool
      */

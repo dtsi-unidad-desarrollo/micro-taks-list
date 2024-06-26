@@ -13,10 +13,8 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+    /**Controlador para manejar las solicitudes de registro de nuevos usuarios.
+
      */
     public function store(Request $request): Response
     {

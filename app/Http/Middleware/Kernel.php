@@ -6,12 +6,11 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
-    /**
-     * The application's global HTTP middleware stack.
-     *
-     * These middleware are run during every request to your application.
-     *
-     * @var array
+    /*
+     En este archivo define la configuración de middleware para la aplicación:
+      Middleware Global Se ejecutan en cada solicitud a la aplicación.
+     Grupos de Middleware Especifica los conjunto de middleware para diferentes contextos (web, api, etc.).
+     Middleware de Ruta: Asigna middleware específicos a grupos o los usa individualmente en rutas.
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
@@ -21,10 +20,13 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
     ];
 
-    /**
-     * The application's route middleware groups.
-     *
-     * @var array
+    /*
+    
+    jwt.auth y jwt.refresh: Middleware proporcionados por tymon/jwt-auth para autenticación basada en JWT.
+    admin: Middleware personalizado para verificar los roles de administrador.
+    verified: Middleware de Laravel para verificar si el correo electrónico del usuario está verificado.
+    Otros middleware estándar de Laravel para gestión de sesiones, seguridad, y más
+    
      */
     protected $middlewareGroups = [
         'web' => [
