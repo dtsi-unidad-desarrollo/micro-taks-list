@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -15,36 +16,55 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-        ]);
+        try {
+           
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:6'
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+    
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+    
+            return response()->json([
+                "message" => 'Usuario registrado satisfactoriamente',
+                "status" => Response::HTTP_CREATED
+            ], Response::HTTP_CREATED);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+        } catch (\Throwable $th) {
+           return response()->json([
+                "message" => $th->getMessage(),
+                "status" => Response::HTTP_INTERNAL_SERVER_ERROR
+           ]);
         }
-
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return response()->json(['message' => 'Usuario registrado satisfactoriamente'], 201);
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
+        
         try {
+
+            $credentials = $request->only('email', 'password');
+
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'Credencialesno validas'], 401);
+                return response()->json(['error' => 'Credenciales no validas'], 401);
             }
+            
+            return response()->json(['token' => $token], 200);
+
         } catch (JWTException $e) {
-            return response()->json(['error' => 'No se pudo crear el token'], 500);
+            return response()->json([
+                'error' => 'No se pudo crear el token. ' . $e->getMessage()
+            
+            ], 500);
         }
 
-        return response()->json(['token' => $token], 200);
     }
 
     public function redirectToGoogle()
