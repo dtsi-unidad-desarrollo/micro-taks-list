@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -13,7 +14,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
@@ -28,11 +29,14 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        return response()->json(['message' => 'Usuario registrado satisfactoriamente'], 201);
+    
+        return response()->json([
+            'mensaje' => 'Usuario registrado satisfactoriamente',
+            'data' => [$user],
+        ], 201);
     }
 
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
@@ -44,7 +48,10 @@ class AuthController extends Controller
             return response()->json(['error' => 'No se pudo crear el token'], 500);
         }
 
-        return response()->json(['token' => $token], 200);
+        return response()->json([
+            'message' => 'Inicio de sesión exitoso',
+            'token' => $token,
+        ], 200);
     }
 
     public function redirectToGoogle()
