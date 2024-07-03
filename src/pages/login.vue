@@ -3,7 +3,7 @@
         <div class="cod-md-6 offset-md-3">
     <div>
         <div>
-            <h3>login</h3>
+            <h3>login {{ firstName }}</h3>
             <hr />
         </div>
         <form>
@@ -31,5 +31,13 @@
 </template>
 
 <script>
-export default {};
+import {mapState} from 'vuex';
+export default {
+    computed : {
+        ...mapState('auth',{
+            firstName : (state) => state.name,
+
+        })
+    }
+};
 </script>
