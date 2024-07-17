@@ -18,7 +18,9 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'in:user,admin' // Permitir solo 'user' o 'admin'
         ]);
 
         if ($validator->fails()) {
@@ -26,8 +28,10 @@ class AuthController extends Controller
         }
 
         $user = User::create([
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role ?? 'user' // Asignar rol, 'user' por defecto si no se proporciona
         ]);
     
         return response()->json([
