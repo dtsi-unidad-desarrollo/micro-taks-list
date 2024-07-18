@@ -6,7 +6,7 @@ export default {
     namespaced: true,
     state() {
         return {
-            name : 'el bicho',
+            name : 'Pseudo-trello',
         };
     },
     mutations : mutations,
