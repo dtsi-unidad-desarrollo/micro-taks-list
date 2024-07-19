@@ -1,14 +1,5 @@
 <template>
 
-<!DOCTYPE html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card Creation Dashboard</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body></body>
-
 <div id="app" class="container mt-3">
     <div class="row">
         <div class="col-md-4" v-for="(card, index) in cards" :key="index">
@@ -21,7 +12,7 @@
         </div>
     </div>
 
-    <form @submit.prevent="addCard" class="mt-3">
+    <form submit.prevent="addCard" class="mt-3">
         <div class="mb-3">
             <label for="title" class="form-label">Title:</label>
             <input type="text" id="title" v-model="newCard.title" class="form-control" required>
