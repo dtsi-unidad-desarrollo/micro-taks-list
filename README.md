@@ -72,3 +72,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### instalar node sass
 
 dirigite a esta pagina [https://www.npmjs.com/package/node-sass] instala sass dentro del proyecto, si dice deprecado utiliza [https://sass-lang.com/install/] 
+
+### instalar Lodash
+
+dirigite a esta pagina [https://www.npmjs.com/package/lodash], no se si se actualizara, pero el proyecto usa lodash 4.17.21
+
+puedes utilizar "npm install --save-exact lodash@4.17.21" en el git para instalar.
+
+

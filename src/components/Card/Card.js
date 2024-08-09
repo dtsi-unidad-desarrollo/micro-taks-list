@@ -1,11 +1,11 @@
-import './Task.scss';
+import './Card.scss';
 
-const Task = () => {
+const Card = () => {
 
     return (
 
         <>
-        <li className='task-item'> 
+        <li className='card-item'> 
               <img src="https://img.icons8.com/?size=256w&id=35411&format=png" ></img>
               diseño y desarrollo
               </li>
@@ -25,4 +25,4 @@ const Task = () => {
 
 }
 
-export default Task;
+export default Card;
